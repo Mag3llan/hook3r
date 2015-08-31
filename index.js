@@ -21,10 +21,13 @@ app.use(logger('custom', {
 
 app.use(restify.bodyParser());
 
-var hooker = require('./hooker.json');
-var base_dir = _.get(hooker, 'hooks_dir', process.env.HOOKS_DIR || './hooks');
-var decryptionKey = _.get(hooker, 'hooks_secret', process.env.HOOKS_DIR || 'VamosPumas');
+var current_dir = process.env['PWD'];
 
+var base_dir = _.get(hooker, 'hooks_dir', current_dir || './hooks');
+var decryptionKey = _.get(hooker, 'hooks_secret', process.env.HOOKS_DIR || 'VamosPumas');
+var hooker = require(path.join(base_dir, './hooker.json'));
+
+console.log(hooker);
 
 app.post('/:hash', function(req, res, next) {
   if (!req.params.hash) {
@@ -48,7 +51,7 @@ app.post('/:hash', function(req, res, next) {
 
   }
 
-  var script_path = path.join(__dirname, 'hooks/' + script_name);
+  var script_path = path.join(base_dir + '/hooks/', script_name);
 
   fs.exists(script_path, function(exists) {
     if (!exists) {
@@ -65,7 +68,9 @@ app.post('/:hash', function(req, res, next) {
       env: _.merge(env, hooker[script_name].env)
     };
 
-    child_process.exec('/usr/bin/env sh ' + script_path, options, function(err, stdout, stderr) {
+    console.log(options);
+
+    child_process.exec('source ' + script_path, options, function(err, stdout, stderr) {
       if (err) {
         //console.warn(stderr);
         console.log(err);
