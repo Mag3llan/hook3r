@@ -4,7 +4,7 @@
   "description": "Simple and dynamic web hooks for node",
   "main": "index.js",
   "bin": {
-    "hooker": "./bin/hooker"
+    "hooker": "./bin/hooker-cli"
   },
   "scripts": {
     "start": "DEBUG=* nodemon ./bin/hooker start | bunyan --output short",
