@@ -1,5 +1,5 @@
 {
-	"update_docker.sh" : {
+	"print-body-variable.sh" : {
 		"env": {
 			"MANUALLY_SET": "A value manually set" 
 		},

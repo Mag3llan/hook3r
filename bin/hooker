@@ -1,14 +1,44 @@
 #!/usr/bin/env node
-'use strict'
 
-var app = require('../');
+var restify = require('restify')
+var logger = require('restify-logger')
+
+var hooker = require('../')
 
 if (process.argv[2] === 'start') {
-  var port = process.argv[3] || 10010
-  app.listen(port, function() {
-  	console.log('%s listening at %s', app.name, app.url);
-  })
+	launch_standalone_server();
 } else {
-	var dirHash = process.argv[2];
-  	console.info(app.hashCwd(dirHash));
+	hash_filename(process.argv[2])
+}
+
+
+function launch_standalone_server() {
+	var app = restify.createServer({
+		name: 'Hooker',
+		version: '1.0.0'
+	});
+
+	app.use(restify.bodyParser())
+
+	// You can use the skip parameter to skip some requests
+	app.use(logger('custom', {
+		skip: function(req) {
+			return process.env.NODE_ENV === "test" || req.method === "OPTIONS" || req.url === "/status";
+		}
+	}));
+
+	app.post('/:hash', hooker.handler);
+
+
+	var port = process.argv[3] || 18080
+
+	app.listen(port, '0.0.0.0', function() {
+		console.log('%s listening at %s', app.name, app.url);
+	})
+
+}
+
+function hash_filename(fileName) {
+	console.log('Obtaining hash for filename: ', fileName)
+	console.info('Hash: ', hooker.hasher(fileName))
 }
