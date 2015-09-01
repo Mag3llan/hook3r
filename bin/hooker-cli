@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var restify = require('restify')
+var logger = require('restify-logger')
+
+var hooker = require('../')
+
+if (process.argv[2] === 'start') {
+	launch_standalone_server();
+} else {
+	hash_filename(process.argv[2])
+}
+
+
+function launch_standalone_server() {
+	var app = restify.createServer({
+		name: 'Hooker',
+		version: '1.0.0'
+	});
+
+	app.use(restify.bodyParser())
+
+	// You can use the skip parameter to skip some requests
+	app.use(logger('custom', {
+		skip: function(req) {
+			return process.env.NODE_ENV === "test" || req.method === "OPTIONS" || req.url === "/status";
+		}
+	}));
+
+	app.post('/:hash', hooker.handler);
+
+
+	var port = process.argv[3] || 18080
+
+	app.listen(port, '0.0.0.0', function() {
+		console.log('%s listening at %s', app.name, app.url);
+	})
+
+}
+
+function hash_filename(fileName) {
+	console.log('Obtaining hash for filename: ', fileName)
+	console.info('Hash: ', hooker.hasher(fileName))
+}
