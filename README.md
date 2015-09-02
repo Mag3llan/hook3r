@@ -25,8 +25,20 @@ A script will receive all those parse properties as environment variables for yo
 How to run it embedded on your server?
 --------------------------------------
 
+ENVIRONMENT VARIABLES used
+* PWD
+* HOOKER_SECRET
+
+GLOBAL OPTIONS (on json)
+* hooks_path
+*
 
 
+TO ADD
+* Interface listener
+* Port
+* SSL Certificates
+* Algorithm
 
 
 
