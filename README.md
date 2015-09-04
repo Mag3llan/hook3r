@@ -54,3 +54,4 @@ TO DO
 - Include query params as possible environment variables.
 - SSL support
 - Add more tests
+- Make hooker config to be dynamic. No need to restart if modified.

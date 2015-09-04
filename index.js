@@ -1,6 +1,14 @@
-require('lugg').init({
-  level: 'warn'
-});
+var lugg = require('lugg');
 
-module.exports = require('./lib/hooker')
+module.exports = function(options) {
+	if (!options)
+		lugg.init({
+			level: 'debug'
+		});
+	else 
+		lugg.init(options);
 
+
+
+	return require('./lib/hooker');
+}
