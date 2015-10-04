@@ -1,6 +1,6 @@
 {
-  "name": "m3n-hooker",
-  "version": "1.1.0",
+  "name": "hook3r",
+  "version": "1.1.1",
   "description": "Simple and dynamic web hooks for node",
   "main": "index.js",
   "bin": {
