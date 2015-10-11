@@ -41,6 +41,10 @@ TO ADD
 * Algorithm
 
 
+Docker
+------
+You can find the docker image here. It will run on port 18080
+
 
 
 Security

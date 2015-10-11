@@ -7,7 +7,7 @@
     "hooker": "./bin/hooker-cli"
   },
   "scripts": {
-    "start": "DEBUG=* nodemon ./bin/hooker start | bunyan --output short",
+    "start": "DEBUG=* nodemon ./bin/hooker-cli start | bunyan --output short",
     "test": "test"
   },
   "author": "Mag3llan Ltd",

@@ -4,7 +4,8 @@
 			"MANUALLY_SET": "A value manually set" 
 		},
 		"paths": {
-			"user.username": "USERNAME"
+			"user.username": "USERNAME",
+			"updated_tags[0]": "DOCKER_TAG"
 		}
 	}
 }
