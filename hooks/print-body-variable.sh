@@ -1,5 +1,7 @@
 #!/bin/sh
 
-echo $MANUALLY_SET
+echo 'Static ENV: '$MANUALLY_SET
 
-echo $USERNAME
+echo 'Name: '$NAME
+
+echo 'Tag: '$DOCKER_TAG

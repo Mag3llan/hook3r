@@ -3,9 +3,9 @@
 		"env": {
 			"MANUALLY_SET": "A value manually set" 
 		},
-		"paths": {
-			"user.username": "USERNAME",
-			"updated_tags[0]": "DOCKER_TAG"
+		"queries": {
+			"name": "NAME",
+			"updated_tags:keys[0]": "DOCKER_TAG"
 		}
 	}
 }
