@@ -4,10 +4,10 @@
   "description": "Simple and dynamic web hooks for node",
   "main": "index.js",
   "bin": {
-    "hooker": "./bin/hooker-cli"
+    "hook3r": "./bin/client"
   },
   "scripts": {
-    "start": "DEBUG=* nodemon ./bin/hooker-cli start | bunyan --output short",
+    "start": "DEBUG=* nodemon ./bin/client start | bunyan --output short",
     "test": "test"
   },
   "author": "Mag3llan Ltd",

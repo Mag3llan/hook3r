@@ -18,4 +18,5 @@ COPY . /usr/src/app
 
 EXPOSE 18080
 
-CMD [ "npm", "start" ]
+ENTRYPOINT ["/usr/src/app/bin/hook3r-cli"]
+CMD ["start"]
