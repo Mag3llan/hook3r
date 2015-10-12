@@ -23,5 +23,8 @@
     "restify": "^4.0.0",
     "restify-logger": "^2.0.1",
     "yargs": "^3.23.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
   }
 }

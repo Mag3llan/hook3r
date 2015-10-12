@@ -18,7 +18,8 @@ Dependencies
 npm install -g nodemon bunyan
 
 Usage
-======================
+=====================
+The tool has been developed in a way that in can be installed on standalone mode (npm install -g) or it can be installed as a module. A docker image has been provided as well. 
 
 I want to receive the data from the body and have all query fields and from body parsed and pushed as environment variables for the process to run.
 
@@ -51,14 +52,16 @@ ENVIRONMENT VARIABLES used
 
 GLOBAL OPTIONS (on json)
 * hooks_path
-*
 
 
-TO ADD
-* Interface listener
-* Port
-* SSL Certificates
-* Algorithm
+JSON QUERY
+===========
+#TODO: Document the usage and the support of lodash functions (cool feature)
+
+
+STATIC ENVIRONMENT VARIABLES
+============================
+#TODO: Document how other environment variables can be passed in statically through the hooks.json file
 
 
 Docker
@@ -66,14 +69,19 @@ Docker
 You can find the docker image here. It will run on port 18080
 
 
-
 Security
 ----------
-It is absolutely necessary to point that we are not enforcing any type of check on what commands are being executed. That is why it's an absolute must to provide TLS and an access token. 
+It is absolutely necessary to point that we are not enforcing any type of check on what commands are being executed. That is why it's an absolute must to provide TLS
+
+SSL Certs
+hook3r -c ./path/to/ssl/server.crt -k ./path/to/ssl/server.key
+
+File name encryption
+hooke3r -s 'nonDefaultSecret' hash name_of_file_to_encrypt.sh
+
+
 
 TO DO
 -----
-- Is hashing the best way to encode the file name?
 - Include query params as possible environment variables.
-- Add more tests
-- Make hooker config to be dynamic. No need to restart if modified.
+- Add tests

@@ -4,8 +4,7 @@
 			"MANUALLY_SET": "A value manually set" 
 		},
 		"queries": {
-			"name": "NAME",
-			"updated_tags:keys[0]": "DOCKER_TAG"
+			"updated_tags:keys[0]": "NAME"
 		}
 	}
 }
