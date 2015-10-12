@@ -1,29 +1,49 @@
-How to use the hooker
+Hook3r
 ===================
+A tool that will help to automate your deployments. 
 
-All begins with a problem... we were needing to auto deploy when master build passes. As we use Gitflow for our dev process.
+The core concept is that you receive webhooks and use the data (body or query params) and pass it as Environment variables to a script. 
 
-We deploy our services with docker. At the moment just plain, but we are in an evaluation process for migrating to Kubernetes. 
-
-For the time being we still need to solve the problem of detecting hooks. And is so complicated to just have a good tool that puts security on top and gives you a lot of freedom. 
+JSON Query is being used in order to specify value.
 
 Want to know more? follow through... 
 
+
+Install
+====================
+Dependencies
+	nodemon: Keeps node running at all time.
+	bunyan: Logging platform.
+
+npm install -g nodemon bunyan
+
+Usage
+======================
+
 I want to receive the data from the body and have all query fields and from body parsed and pushed as environment variables for the process to run.
 
+For example:
+
+Script to run: print-body-variable.sh (Check the hooks folder)
+Secret: changeme!! (default)
+Hashed script name: c0X7svTBlOqkP2TPslstnvGCmsYt5c2d
+
+
 ```
-https://appdomain.com/script_name_to_run
+curl -H "Content-Type: application/json" \
+-X POST -d '{"name": "hook3r-tst"}' \
+http://0.0.0.0:18080/c0X7svTBlOqkP2TPslstnvGCmsYt5c2dc0X7svTBlOqkP2TPslstnvGCmsYt5c2d
 ```
 
-script_name_to_run has to be a valid name. 
-	***
-	***
+The output of the script file should be visible on the logs.
 
-A script will receive all those parse properties as environment variables for you to use within the 
+DEBUG: default/42997 on local:  (module=hooker)
+    Static ENV: A value manually set
+    Name: hook3r-tst
 
 
-How to run it embedded on your server?
---------------------------------------
+Configuration
+=============
 
 ENVIRONMENT VARIABLES used
 * PWD
@@ -53,9 +73,7 @@ It is absolutely necessary to point that we are not enforcing any type of check 
 
 TO DO
 -----
-
 - Is hashing the best way to encode the file name?
 - Include query params as possible environment variables.
-- SSL support
 - Add more tests
 - Make hooker config to be dynamic. No need to restart if modified.
