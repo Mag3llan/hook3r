@@ -1,23 +1,132 @@
-#!/usr/bin/env node
+#!/usr/bin/env node 
+
+/* 
+Options
+- Certificate paths
+- debug level
+*/
+
+var start_command_description = 'Starts server on default port [18080] and default interface [0.0.0.0]'
+var hash_command_description = 'Creates a hash for the specified file name'
+var yargs = require('yargs')
+var argv = yargs
+			.usage('Usage: $0 [OPTIONS] COMMAND [arg...]')
+			.option('s', {
+				alias: 'secret',
+				description: 'Encryption secret',
+				type: 'string',
+				nargs: 1
+			})
+			.command('hash', hash_command_description, function(yargs) {
+				argv = yargs.example('$0 hash download-file.sh')
+							.usage('Usage: $0 hash file_name_to_hash')
+							.option('s', {
+								alias: 'secret',
+								description: 'Encryption secret',
+								type: 'string',
+								nargs: 1
+							})
+							.demand(2)
+							.help('h')
+							.alias('h', 'help')
+							.argv
+			})
+			.command('start', start_command_description, function(yargs) {
+				argv = yargs.example('$0 start -p 18080 -i 0.0.0.0')
+							.option('p', {
+								alias: 'port',
+								describe: 'Port listener',
+								default: 18080,
+								nargs: 1
+							})
+							.option('i', {
+								alias: 'interface',
+								describe: 'Host interface (127.0.0.1)',
+								default: '0.0.0.0',
+								type: 'string',
+								nargs: 1
+							})
+							.option('path', {
+								default: './hooks',
+								describe: 'Scripts location',
+								type: 'string'
+							})
+							.option('s', {
+								alias: 'secret',
+								description: 'Encryption secret',
+								type: 'string',
+								nargs: 1
+							})
+							.option('k', {
+								alias: 'key',
+								description: 'Path to the SSL Key file (server.key)',
+								type: 'string',
+								nargs: 1
+							})
+							.option('c', {
+								alias: 'cert',
+								description: 'Path to the SSL Certificate file (server.crt)',
+								type: 'string',
+								nargs: 1
+							})
+							.help('h')
+							.alias('h', 'help')
+			})
+			.demand(1)
+			.help('h')
+			.alias('h', 'help')
+			.epilog('Mag3llan Ltd Copyright 2015')
+			.version(function() {
+				return require('../package.json').version;
+			})
+			.argv;
+			
+var command = argv._[0]
+
+
+if (command != 'start' && command != 'hash') {
+	console.error('ERROR: Invalid command\n')
+	yargs.showHelp()
+	return;
+}
+
+if (argv.secret)
+	process.env.HOOKER_SECRET = argv.secret
+
 
 var restify = require('restify')
 var logger = require('restify-logger')
+var PrettyStream = require('bunyan-prettystream');
+var fs = require('fs')
 
-var hooker = require('../')
+var prettyStdOut = new PrettyStream();
+prettyStdOut.pipe(process.stdout);
 
-if (process.argv[2] === 'start') {
-	launch_standalone_server();
-} else {
-	hash_filename(process.argv[2])
-}
+var hooker = require('../index.js')({
+          name: 'default',
+          stream: prettyStdOut,
+          level: 'warn'
+  });
 
+if (command === 'start')
+	launch_standalone_server()
+
+if (command === 'hash')
+	hash_filename()
+	
 
 function launch_standalone_server() {
-	var app = restify.createServer({
-		name: 'Hooker',
-		version: '1.0.0'
-	});
+	var options = {
+		name: 'Hooker'
+	}
 
+	if (argv.key && argv.cert) {
+		options.key = fs.readFileSync(argv.key)
+		options.certificate = fs.readFileSync(argv.cert)
+	}
+		
+
+	var app = restify.createServer(options);
 	app.use(restify.bodyParser())
 
 	// You can use the skip parameter to skip some requests
@@ -29,16 +138,15 @@ function launch_standalone_server() {
 
 	app.post('/:hash', hooker.handler);
 
-
-	var port = process.argv[3] || 18080
-
-	app.listen(port, '0.0.0.0', function() {
+	app.listen(argv.port, argv.interface, function() {
 		console.log('%s listening at %s', app.name, app.url);
 	})
 
 }
 
-function hash_filename(fileName) {
+function hash_filename() {
+	process.env.HOOKER_SECRET = argv.secret
+	var fileName = argv._[1];
 	console.log('Obtaining hash for filename: ', fileName)
 	console.info('Hash: ', hooker.hasher(fileName))
 }
