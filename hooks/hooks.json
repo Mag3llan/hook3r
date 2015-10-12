@@ -1,5 +1,5 @@
 {
-	"print-body-variable.sh" : {
+	"test.sh" : {
 		"env": {
 			"MANUALLY_SET": "A value manually set" 
 		},

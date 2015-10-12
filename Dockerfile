@@ -18,5 +18,5 @@ COPY . /usr/src/app
 
 EXPOSE 18080
 
-ENTRYPOINT ["/usr/src/app/bin/hook3r-cli"]
+ENTRYPOINT ["/usr/src/app/bin/client"]
 CMD ["start"]
