@@ -5,7 +5,7 @@ var chai = require('chai');
 chai.should();
 lugg.init();
 
-var Hooker = require('../lib/hooker');
+var Hooker = require('../lib');
 
 describe('Hooker', function() {
 	var secret = 'ChangeMe!!';
@@ -52,7 +52,7 @@ describe('Hooker', function() {
 	describe("Run hash", function() {
 
 		it('should create a file with the name from quayExample (test-name)', function(done) {			
-			
+
 			hooker.runHash(fileNameHash, data)
 				.then(function() {
 					fs.exists(fileCreatedName, function(exists) {

@@ -2,3 +2,5 @@
 node_modules
 run-docker.sh
 build-docker.sh
+test
+integration
