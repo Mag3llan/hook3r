@@ -1,4 +1,4 @@
-FROM node:0.12-wheezy
+FROM node:5.1.0-wheezy
 
 MAINTAINER devops@mag3llan.com
 

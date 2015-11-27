@@ -136,11 +136,13 @@ function launch_standalone_server() {
 		}
 	}));
 
-	app.post('/:hash', hooker.handler);
+	app.post('/:hash', hooker.middleware());
 
 	app.listen(argv.port, argv.interface, function() {
 		console.log('%s listening at %s', app.name, app.url);
-	})
+		console.log(hooker.availableScripts())
+
+	});
 
 }
 

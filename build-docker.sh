@@ -2,8 +2,9 @@
 
 APP_NAME=${PWD##*/}
 
-VERSION=$(npm view $APP_NAME version)
+#VERSION=$(npm view $APP_NAME version)
+VERSION=$1
 
 TAG=quay.io/mag3llan/$APP_NAME:$VERSION
 
-docker build -t $TAG .
+docker build --no-cache -t $TAG .

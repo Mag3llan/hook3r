@@ -7,8 +7,8 @@
     "hook3r": "./bin/client"
   },
   "scripts": {
-    "start": "DEBUG=* nodemon ./bin/client start | bunyan --output short",
-    "test": "test"
+    "start": "HOOK3R_PATH='./test/resources/' DEBUG=* nodemon ./bin/client start | bunyan --output short",
+    "test": "DEBUG=*hooker mocha | bunyan --output short"
   },
   "author": "Mag3llan Ltd",
   "license": "MIT License",
@@ -25,6 +25,7 @@
     "yargs": "^3.23.0"
   },
   "devDependencies": {
+    "chai": "^3.4.1",
     "mocha": "^2.3.3"
   }
 }

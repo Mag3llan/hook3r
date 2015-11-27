@@ -6,7 +6,10 @@ The core concept is that you receive webhooks and use the data (body or query pa
 
 JSON Query is being used in order to specify value.
 
-Want to know more? follow through... 
+It is possible to apply any _ (lodash) function to the hook object.
+
+
+
 
 
 Install
@@ -48,7 +51,8 @@ Configuration
 
 ENVIRONMENT VARIABLES used
 * PWD
-* HOOKER_SECRET
+* SECRET
+* PATH: All this paths are relative to the Hooker path (default ./hooks folder from where the app has been launched)
 
 GLOBAL OPTIONS (on json)
 * hooks_path

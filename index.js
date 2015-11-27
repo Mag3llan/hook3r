@@ -8,7 +8,6 @@ module.exports = function(options) {
 	else 
 		lugg.init(options);
 
-
-
-	return require('./lib/hooker');
+	var Hooker = require('./lib/hooker'); 
+	return new Hooker(options)
 }
