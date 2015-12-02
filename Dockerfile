@@ -1,4 +1,4 @@
-FROM node:0.12-wheezy
+FROM node:5.1.0-wheezy
 
 MAINTAINER devops@mag3llan.com
 
@@ -18,4 +18,5 @@ COPY . /usr/src/app
 
 EXPOSE 18080
 
-CMD [ "npm", "start" ]
+ENTRYPOINT ["/usr/src/app/bin/client"]
+CMD ["start"]

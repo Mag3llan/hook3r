@@ -1,0 +1,14 @@
+{
+	"test.sh" : {
+		"staticEnvs": {
+			"STATIC_ENV": "VALID"
+		},
+		"queries": {
+			"docker_url": "URL",
+			"name": "REPOSITORY_NAME"
+		}
+	},
+	"never-run.sh": {
+		
+	}
+}
