@@ -7,7 +7,6 @@ chai.should();
 lugg.init();
 
 
-
 describe("Runnable", function() {
 	var runnable = require('../lib/runnable');
 

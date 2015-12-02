@@ -1,13 +1,15 @@
 var fs = require('fs');
 var lugg = require('lugg');
 var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 
 chai.should();
 lugg.init();
 
-var Hooker = require('../lib');
 
 describe('Hooker', function() {
+	var Hooker = require('../lib');
+
 	var secret = 'ChangeMe!!';
 	var fileName = "test.sh";
 	var fileNameHash = "pyUPMeDcQ9k=";
@@ -49,7 +51,7 @@ describe('Hooker', function() {
 
 	});
 
-	describe("Run hash", function() {
+	describe("Run valid hash", function() {
 
 		it('should create a file with the name from quayExample (test-name)', function(done) {			
 
@@ -65,8 +67,24 @@ describe('Hooker', function() {
 				});
 		});
 
+		
+
 		afterEach(function() {
 			fs.unlink(fileCreatedName);
+		});
+
+	});
+
+	describe('Run invalid hash', function() {
+		it('Should fail if not a valid hash', function() {
+			var invalidHash = 'NotAValidHash';
+
+			return hooker.runHash(invalidHash, data).should.be.rejected;
+		});
+
+		it('Should fail if a valid hash links to unexisting file name on descriptor', function() {
+			var unexistingFileNameHash = ''
+			return hooker.runHash(unexistingFileNameHash, data).should.be.rejected;
 		});
 
 	})
