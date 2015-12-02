@@ -6,10 +6,7 @@ The core concept is that you receive webhooks and use the data (body or query pa
 
 JSON Query is being used in order to specify value.
 
-It is possible to apply any _ (lodash) function to the hook object.
-
-
-
+It is possible to apply transformations to the received data through _ (lodash) functions
 
 
 Install

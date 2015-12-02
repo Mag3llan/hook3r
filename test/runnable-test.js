@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised')
 var lugg = require('lugg');
 
 chai.should();
@@ -56,6 +57,8 @@ describe("Runnable", function() {
 			fs.unlink(fileCreatedName);
 		});
 
-	})
+	});
 
 });
+
+

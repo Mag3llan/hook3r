@@ -105,7 +105,7 @@ prettyStdOut.pipe(process.stdout);
 var hooker = require('../index.js')({
           name: 'default',
           stream: prettyStdOut,
-          level: 'warn'
+          level: 'info'
   });
 
 if (command === 'start')
@@ -140,11 +140,11 @@ function launch_standalone_server() {
 
 	app.listen(argv.port, argv.interface, function() {
 		console.log('%s listening at %s', app.name, app.url);
-		console.log(hooker.availableScripts())
-
 	});
 
 }
+
+
 
 function hash_filename() {
 	process.env.HOOKER_SECRET = argv.secret
